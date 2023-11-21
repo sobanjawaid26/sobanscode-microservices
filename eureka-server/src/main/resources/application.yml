@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: eureka-server
+server:
+  port: 8761
+eureka:
+  client:
+    fetch-registry: false       # Indicates if this client should fetch registry from the Eureka Server, NO, since this is a server itself
+    register-with-eureka: false # Indicates if this instance should register its information with the server
