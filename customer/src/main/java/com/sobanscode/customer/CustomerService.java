@@ -3,7 +3,7 @@ package com.sobanscode.customer;
 import org.springframework.stereotype.Service;
 
 @Service
-public record CustomerService() {
+public record CustomerService(CustomerRepository customerRepository) {
 
     public void registerCustomer(CustomerRegistrationRequest request){
         Customer customer = Customer.builder()
@@ -13,7 +13,7 @@ public record CustomerService() {
                 .build();
         // todo: check if email valid
         // todo: check if email not taken
-        // todo: store customer in DB
+        customerRepository.save(customer);
         /*
           The data directory was initialized by PostgreSQL version 15,
           which is not compatible with this version 16.1 (Debian 16.1-1.pgdg120+1).
