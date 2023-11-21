@@ -6,7 +6,11 @@
 
   <groupId>com.sobanscode</groupId>
   <artifactId>sobansservices</artifactId>
+  <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>customer</module>
+  </modules>
 
   <name>sobansservices</name>
   <!-- FIXME change it to the project's website -->
