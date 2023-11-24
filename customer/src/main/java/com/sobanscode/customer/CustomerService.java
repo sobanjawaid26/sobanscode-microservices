@@ -1,5 +1,7 @@
 package com.sobanscode.customer;
 
+import com.sobanscode.clients.fraud.FraudCheckResponse;
+import com.sobanscode.clients.fraud.FraudClient;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final RestTemplate restTemplate;
+    private final FraudClient fraudClient;
 
     public void registerCustomer(CustomerRegistrationRequest request){
         Customer customer = Customer.builder()
@@ -22,11 +25,15 @@ public class CustomerService {
         // todo: check if email not taken
         customerRepository.saveAndFlush(customer);
         // todo: check if fraudster
+        /*
         FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
                 "http://FRAUD/api/v1/fraud-check/{customerId}",
                 FraudCheckResponse.class,
                 customer.getId()
         );
+         */
+
+        FraudCheckResponse fraudCheckResponse = fraudClient.isFraudster(customer.getId());
 
         if(fraudCheckResponse.isFraudster()){
             throw new IllegalStateException("fraudster");
